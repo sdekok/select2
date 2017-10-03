@@ -18,6 +18,7 @@ define([
   './data/select',
   './data/array',
   './data/ajax',
+  './data/query',
   './data/tags',
   './data/tokenizer',
   './data/minimumInputLength',
@@ -43,7 +44,7 @@ define([
 
              Utils, Translation, DIACRITICS,
 
-             SelectData, ArrayData, AjaxData, Tags, Tokenizer,
+             SelectData, ArrayData, AjaxData, QueryData, Tags, Tokenizer,
              MinimumInputLength, MaximumInputLength, MaximumSelectionLength,
 
              Dropdown, DropdownSearch, HidePlaceholder, InfiniteScroll,
@@ -60,9 +61,11 @@ define([
     if (options.dataAdapter == null) {
       if (options.ajax != null) {
         options.dataAdapter = AjaxData;
-      } else if (options.data != null) {
+      } else if(options.customQuery != null){
+        options.dataAdapter = QueryData;
+      }else if (options.data != null) {
         options.dataAdapter = ArrayData;
-      } else {
+      }else {
         options.dataAdapter = SelectData;
       }
 
@@ -120,7 +123,7 @@ define([
     if (options.resultsAdapter == null) {
       options.resultsAdapter = ResultsList;
 
-      if (options.ajax != null) {
+      if (options.ajax != null || options.customQuery != null) {
         options.resultsAdapter = Utils.Decorate(
           options.resultsAdapter,
           InfiniteScroll

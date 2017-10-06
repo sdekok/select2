@@ -23,8 +23,6 @@ define([
     var matches = [];
     var self = this;
 
-    console.log(params.term);
-
     if(self.queryOptions.query) {
       matches = self.queryOptions.query(params.term);
     }

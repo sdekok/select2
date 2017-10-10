@@ -79,6 +79,9 @@ define([
     if ($(data.element).is('option')) {
       data.element.selected = false;
 
+      //workaround to get this to work on chrome 30 and android 4.4 web view
+      data.element = "";
+
       this.$element.trigger('change');
 
       return;
